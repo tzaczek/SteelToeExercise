@@ -1,3 +1,3 @@
 # SteelToeExercise
 Repository with microservices learning project 
-![Blank diagram (13)](https://user-images.githubusercontent.com/47285958/153774905-5098e813-c240-43eb-8287-098cdd6165ec.png)
+![Blank diagram (14)](https://user-images.githubusercontent.com/47285958/153775029-ca328a1e-78f6-495f-a29b-25466d4a945e.png)
