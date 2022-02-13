@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+option csharp_namespace = "GitHub.Repository.Analyzer.Processor.Communication";
+
+package ProcessRepository;
+
+service ProcessRepositoryLicenseServiceDefintion {
+  rpc ProcessLicense (ProcessRepositoryLicenseRequest) returns (ProcessRepositoryLicenseReply);
+}
+
+message ProcessRepositoryLicenseRequest {
+  string repositoryName = 1;
+  string licenseKey = 2;
+  string licenseName = 3;
+  string licenseKeySearchDefinition = 4;
+}
+
+message ProcessRepositoryLicenseReply {
+  string message = 1;
+  bool processingResult = 2;
+  string repoistoryName = 3;
+}
