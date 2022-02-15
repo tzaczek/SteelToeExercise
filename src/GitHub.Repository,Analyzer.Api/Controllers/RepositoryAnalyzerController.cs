@@ -34,7 +34,7 @@ namespace GitHub.Repository_Analyzer.Api.Controllers
     }
 
     /// <summary>
-    /// 
+    /// Retrieve starred repositories having specified license type
     /// </summary>
     /// <param name="accessToken">Private access token for accessing GitHub API</param>
     /// <param name="licenseName">The name of the license used to filter starred repositories</param>
@@ -46,7 +46,9 @@ namespace GitHub.Repository_Analyzer.Api.Controllers
     {
       _logger.LogDebug("GetStarredRepositoriesHavingLicense");
 
-      var cacheKey = CacheKeyBuilder.Build(accessToken, licenseName);
+      //ToDo Caching will be moved to custom middleware 
+
+      var cacheKey = CacheKeyBuilder.Build(new List<object>{accessToken, licenseName});
 
       if (useCache)
       {
@@ -73,6 +75,8 @@ namespace GitHub.Repository_Analyzer.Api.Controllers
       {
         return NotFound("Starred repositories for current user");
       }
+
+      //Fan-out processing requests
 
       var matchingStarredRepositories = await _gitHubRepositoryLicenseProcessorService.Process(
         loadedRepositories,

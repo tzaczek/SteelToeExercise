@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Ardalis.GuardClauses;
 using GitHub.Repository.Analyzer.Processor.Communication;
 using GitHub.Repository.Analyzer.Processor.Processor;
 using Grpc.Core;
@@ -27,6 +28,8 @@ namespace GitHub.Repository.Analyzer.Processor.Service
     public override Task<ProcessRepositoryLicenseReply> ProcessLicense(ProcessRepositoryLicenseRequest request, ServerCallContext context)
     {
       _logger.LogDebug($"{nameof(ProcessLicense)} request");
+
+      Guard.Against.Null(request, nameof(request));
 
       const ProcessorType compatibleProcessorType = ProcessorType.LicenseKeyNameProcessor;
 

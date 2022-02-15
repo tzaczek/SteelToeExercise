@@ -16,11 +16,21 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ProcessorProtos", "Processo
 		Communication\ProcessorProtos\ProcessRepository.proto = Communication\ProcessorProtos\ProcessRepository.proto
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GitHub.Repository.Analyzer.Processor.Client", "GitHub.Repository.Analyzer.Processor.Client\GitHub.Repository.Analyzer.Processor.Client.csproj", "{BF0C074B-E60A-476F-BDB0-8597F12CE490}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GitHub.Repository.Analyzer.Processor.Client", "GitHub.Repository.Analyzer.Processor.Client\GitHub.Repository.Analyzer.Processor.Client.csproj", "{BF0C074B-E60A-476F-BDB0-8597F12CE490}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GitHub.Repository.Analyzer.GitHub.Client", "GitHub.Repository.Analyzer.GitHub.Client\GitHub.Repository.Analyzer.GitHub.Client.csproj", "{45DC2393-5D2F-48F7-A229-E6FB2D7807A0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GitHub.Repository.Analyzer.GitHub.Client", "GitHub.Repository.Analyzer.GitHub.Client\GitHub.Repository.Analyzer.GitHub.Client.csproj", "{45DC2393-5D2F-48F7-A229-E6FB2D7807A0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GitHub.Repository.Analyzer.Loader.Communication", "GitHub.Repository.Analyzer.Loader.Communication\GitHub.Repository.Analyzer.Loader.Communication.csproj", "{AE3D1559-47DA-4700-94D6-9EF796C8EA75}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GitHub.Repository.Analyzer.Loader.Communication", "GitHub.Repository.Analyzer.Loader.Communication\GitHub.Repository.Analyzer.Loader.Communication.csproj", "{AE3D1559-47DA-4700-94D6-9EF796C8EA75}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{66E63C20-9728-455A-BB2E-A707C5A8F52B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GitHub.Repository.Analyzer.Processor.Tests", "GitHub.Repository.Analyzer.Processor.Tests\GitHub.Repository.Analyzer.Processor.Tests.csproj", "{982A8138-A1CA-46A1-8096-DBF92DE7B6D5}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GitHub.Repository.Analyzer.Loader.Tests", "GitHub.Repository.Analyzer.Loader.Tests\GitHub.Repository.Analyzer.Loader.Tests.csproj", "{5271463D-F791-4E54-89EF-94FE8DB01FF2}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GitHub.Repository.Analyzer.Api.Tests", "GitHub.Repository.Analyzer.Api.Tests\GitHub.Repository.Analyzer.Api.Tests.csproj", "{D570C0C1-C4DC-475F-847B-73DADDA45AFE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GitHub.Repository.Analyzer.Tests.Shared", "GitHub.Repository.Analyzer.Tests.Shared\GitHub.Repository.Analyzer.Tests.Shared.csproj", "{F70F4AAA-5EFB-4F34-9D73-9376B05FE7E3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -52,12 +62,32 @@ Global
 		{AE3D1559-47DA-4700-94D6-9EF796C8EA75}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AE3D1559-47DA-4700-94D6-9EF796C8EA75}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AE3D1559-47DA-4700-94D6-9EF796C8EA75}.Release|Any CPU.Build.0 = Release|Any CPU
+		{982A8138-A1CA-46A1-8096-DBF92DE7B6D5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{982A8138-A1CA-46A1-8096-DBF92DE7B6D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{982A8138-A1CA-46A1-8096-DBF92DE7B6D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{982A8138-A1CA-46A1-8096-DBF92DE7B6D5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5271463D-F791-4E54-89EF-94FE8DB01FF2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5271463D-F791-4E54-89EF-94FE8DB01FF2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5271463D-F791-4E54-89EF-94FE8DB01FF2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5271463D-F791-4E54-89EF-94FE8DB01FF2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D570C0C1-C4DC-475F-847B-73DADDA45AFE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D570C0C1-C4DC-475F-847B-73DADDA45AFE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D570C0C1-C4DC-475F-847B-73DADDA45AFE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D570C0C1-C4DC-475F-847B-73DADDA45AFE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F70F4AAA-5EFB-4F34-9D73-9376B05FE7E3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F70F4AAA-5EFB-4F34-9D73-9376B05FE7E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F70F4AAA-5EFB-4F34-9D73-9376B05FE7E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F70F4AAA-5EFB-4F34-9D73-9376B05FE7E3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{E8CBE677-E3E5-4CA4-8836-505FFD04E1A8} = {8D5630A5-8C9B-458F-B8BD-DCF9ABE717AE}
+		{982A8138-A1CA-46A1-8096-DBF92DE7B6D5} = {66E63C20-9728-455A-BB2E-A707C5A8F52B}
+		{5271463D-F791-4E54-89EF-94FE8DB01FF2} = {66E63C20-9728-455A-BB2E-A707C5A8F52B}
+		{D570C0C1-C4DC-475F-847B-73DADDA45AFE} = {66E63C20-9728-455A-BB2E-A707C5A8F52B}
+		{F70F4AAA-5EFB-4F34-9D73-9376B05FE7E3} = {66E63C20-9728-455A-BB2E-A707C5A8F52B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CFE4FE4B-61BD-4F60-A5E7-4A54FA9A5245}

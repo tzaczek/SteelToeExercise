@@ -1,3 +1,4 @@
+using System;
 using System.Text.Json.Serialization;
 using GitHub.Repository.Analyzer.Loader.Communication;
 using GitHub.Repository.Analyzer.Processor.Client.ClientBuilder;

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Ardalis.GuardClauses;
 using GitHub.Repository.Analyzer.Processor.Communication;
 using Microsoft.Extensions.Logging;
 
@@ -18,12 +19,15 @@ namespace GitHub.Repository.Analyzer.Processor.Processor
 
     public async Task<ProcessRepositoryLicenseReply> Process(ProcessRepositoryLicenseRequest request)
     {
-      _logger.LogDebug($"{nameof(LicenseKeyNameProcessor)} process request for repository {request.RepositoryName}");
+      Guard.Against.Null(request, nameof(request));
 
+      _logger.LogDebug($"{nameof(LicenseKeyNameProcessor)} process request for repository {request.RepositoryName}");
+      
       //simulate long lasting operation
       await Task.Delay(TimeSpan.FromSeconds(1));
 
-      var result = request.LicenseKey.Contains(request.LicenseKeySearchDefinition, StringComparison.InvariantCultureIgnoreCase);
+      var result = !string.IsNullOrWhiteSpace(request.LicenseKey) 
+                   && request.LicenseKey.Contains(request.LicenseKeySearchDefinition, StringComparison.InvariantCultureIgnoreCase);
 
       return new ProcessRepositoryLicenseReply
       {
