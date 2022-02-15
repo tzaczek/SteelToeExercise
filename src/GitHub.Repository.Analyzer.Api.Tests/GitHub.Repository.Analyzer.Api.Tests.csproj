@@ -19,4 +19,9 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\GitHub.Repository,Analyzer.Api\GitHub.Repository.Analyzer.Api.csproj" />
+    <ProjectReference Include="..\GitHub.Repository.Analyzer.Tests.Shared\GitHub.Repository.Analyzer.Tests.Shared.csproj" />
+  </ItemGroup>
+
 </Project>

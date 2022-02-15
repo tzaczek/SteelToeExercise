@@ -1,4 +1,5 @@
 ﻿using System.Collections.Concurrent;
+using Ardalis.GuardClauses;
 using GitHub.Repository.Analyzer.GitHub.Client.Client;
 using GitHub.Repository.Analyzer.GitHub.Client.ClientBuilder;
 using Microsoft.Extensions.Logging;
@@ -21,6 +22,8 @@ namespace GitHub.Repository.Analyzer.Loader.ClientProvider
 
     public IGitHubClient GetClient(GitHubClientData clientData)
     {
+      Guard.Against.Null(clientData, nameof(clientData));
+
       _logger.LogDebug($"Getting GitHub client from {nameof(CachedGitHubClientProvider)}");
 
       return _cache.GetOrAdd(clientData, data => _target.GetClient(data));

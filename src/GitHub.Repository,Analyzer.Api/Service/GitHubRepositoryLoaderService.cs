@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Ardalis.GuardClauses;
 using GitHub.Repository.Analyzer.GitHub.Client.ClientBuilder;
 using GitHub.Repository.Analyzer.GitHub.Client.Models;
 using GitHub.Repository.Analyzer.Loader.Communication;
@@ -27,6 +29,8 @@ namespace GitHub.Repository_Analyzer.Api.Service
 
     public async Task<IList<GitHubRepository>> LoadStarredRepositories(GitHubClientData clientData)
     {
+      Guard.Against.Null(clientData, nameof(clientData));
+
       _logger.LogDebug("Load starred repositories");
 
       var serializedClientData = JsonConvert.SerializeObject(clientData);
@@ -36,11 +40,16 @@ namespace GitHub.Repository_Analyzer.Api.Service
         new RabbitDestination(MessagingQueueNames.LoadRepositoryQueueName),
         message);
 
-      var deserializedResult =  JsonConvert.DeserializeObject<IList<GitHubRepository>>(result);
+      var deserializedResult =  JsonConvert.DeserializeObject<LoaderResponse>(result);
 
-      _logger.LogDebug($"Received {deserializedResult.Count} repositories count");
+      if (deserializedResult is { Success: false })
+      {
+        throw new ApplicationException($"Load repositories error {deserializedResult.ProcessingMessage}");
+      }
 
-      return deserializedResult;
+      _logger.LogDebug($"Received {deserializedResult.Results.Count} repositories count");
+
+      return deserializedResult.Results.Cast<GitHubRepository>().ToList();
     }
 
     private static IMessage CreateMessage(string messagePayload)

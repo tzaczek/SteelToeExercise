@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using Ardalis.GuardClauses;
+using AutoMapper;
 using GitHub.Repository.Analyzer.GitHub.Client.Client;
 using Octokit;
 using IGitHubClient = GitHub.Repository.Analyzer.GitHub.Client.Client.IGitHubClient;
@@ -16,6 +17,8 @@ namespace GitHub.Repository.Analyzer.GitHub.Client.ClientBuilder
 
     public IGitHubClient Build(GitHubClientData clientData)
     {
+      Guard.Against.Null(clientData, nameof(clientData));
+
       var tokenAuth = new Credentials(clientData.AccessToken);
 
       var client = new GitHubClient(new ProductHeaderValue(clientData.OrganizationName))

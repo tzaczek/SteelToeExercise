@@ -1,10 +1,12 @@
 using System;
+using System.IO;
+using System.Reflection;
 using System.Text.Json.Serialization;
 using GitHub.Repository.Analyzer.Loader.Communication;
 using GitHub.Repository.Analyzer.Processor.Client.ClientBuilder;
 using GitHub.Repository_Analyzer.Api.Cache;
 using GitHub.Repository_Analyzer.Api.ClientProvider;
-using GitHub.Repository_Analyzer.Api.Controllers;
+using GitHub.Repository_Analyzer.Api.Configuration;
 using GitHub.Repository_Analyzer.Api.Service;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -34,12 +36,13 @@ namespace GitHub.Repository_Analyzer.Api
         .AddJsonOptions(options =>
           options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()));
 
-      services.AddOpenApiDocument(settings =>
+      services.Configure<LicenseProcessorClientConfiguration>(
+        Configuration.GetSection(nameof(LicenseProcessorClientConfiguration)));
+
+      services.AddSwaggerGen(settings =>
       {
-        settings.DocumentName = "Repository Analyzer";
-        settings.Version = "v0.0.1";
-        settings.Title = "GitHub Repository Analyzer";
-        settings.Description = "API for GitHub repositories processing";
+        settings.EnableAnnotations();
+        settings.CustomSchemaIds(type => type.ToString());
       });
 
       services.AddRabbitQueue(new Queue(MessagingQueueNames.LoadRepositoryQueueName));
@@ -69,8 +72,8 @@ namespace GitHub.Repository_Analyzer.Api
         app.UseDeveloperExceptionPage();
       }
 
-      app.UseOpenApi();
-      app.UseSwaggerUi3();
+      app.UseSwagger();
+      app.UseSwaggerUI();
 
       app.UseRouting();
       app.UseAuthorization();

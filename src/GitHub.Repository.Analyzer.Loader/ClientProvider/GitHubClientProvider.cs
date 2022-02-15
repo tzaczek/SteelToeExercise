@@ -1,4 +1,5 @@
-﻿using GitHub.Repository.Analyzer.GitHub.Client.Client;
+﻿using Ardalis.GuardClauses;
+using GitHub.Repository.Analyzer.GitHub.Client.Client;
 using GitHub.Repository.Analyzer.GitHub.Client.ClientBuilder;
 using Microsoft.Extensions.Logging;
 
@@ -17,6 +18,8 @@ namespace GitHub.Repository.Analyzer.Loader.ClientProvider
 
     public IGitHubClient GetClient(GitHubClientData clientData)
     {
+      Guard.Against.Null(clientData, nameof(clientData));
+
       _logger.LogDebug($"Getting GitHub client from {nameof(GitHubClientProvider)}");
 
       return _gitHubClientBuilder.Build(clientData);

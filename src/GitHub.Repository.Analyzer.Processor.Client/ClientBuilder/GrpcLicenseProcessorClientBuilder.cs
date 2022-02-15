@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using Ardalis.GuardClauses;
+using AutoMapper;
 using GitHub.Repository.Analyzer.Processor.Client.Client;
 using GitHub.Repository.Analyzer.Processor.Communication;
 using Grpc.Net.Client;
@@ -15,7 +16,9 @@ namespace GitHub.Repository.Analyzer.Processor.Client.ClientBuilder
     }
 
     public ILicenseProcessorClient Build(LicenseProcessorClientData clientData)
-    { 
+    {
+      Guard.Against.Null(clientData, nameof(clientData));
+
       var channel = GrpcChannel.ForAddress(clientData.Url);
       var gRpcClient = new ProcessRepositoryLicenseServiceDefintion.ProcessRepositoryLicenseServiceDefintionClient(channel);
 

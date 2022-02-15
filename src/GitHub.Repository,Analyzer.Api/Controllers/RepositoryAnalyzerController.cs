@@ -1,14 +1,16 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using GitHub.Repository.Analyzer.GitHub.Client.ClientBuilder;
+using GitHub.Repository.Analyzer.GitHub.Client.Models;
 using GitHub.Repository.Analyzer.Processor.Client.Models;
 using GitHub.Repository_Analyzer.Api.Cache;
 using GitHub.Repository_Analyzer.Api.Service;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using NSwag.Annotations;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace GitHub.Repository_Analyzer.Api.Controllers
 {
@@ -41,12 +43,16 @@ namespace GitHub.Repository_Analyzer.Api.Controllers
     /// <param name="useCache">Use cache for given accessToken and licenseName</param>
     /// <returns></returns>
     [HttpGet(Name = "GetStarredRepositoriesHavingLicense")]
-    [OpenApiOperation("Retrieve starred repositories having specified license type")]
+    [SwaggerOperation(
+      Summary = "Get starred repositories with a matching license",
+      Description = "Retrieve starred repositories having specified license type",
+      OperationId = "GetStarredRepositoriesHavingLicense",
+      Tags = new[] { "Starred-Repositories" })]
     public async Task<ActionResult<IList<ProcessRepositoryLicenseResult>>> Get(string accessToken, string licenseName, bool useCache = true)
     {
       _logger.LogDebug("GetStarredRepositoriesHavingLicense");
 
-      //ToDo Caching will be moved to custom middleware 
+      //ToDo Caching will be moved to custom caching middleware 
 
       var cacheKey = CacheKeyBuilder.Build(new List<object>{accessToken, licenseName});
 
@@ -64,13 +70,22 @@ namespace GitHub.Repository_Analyzer.Api.Controllers
         await _cacheStorage.RemoveCacheItem(cacheKey);
       }
 
-      var loadedRepositories = await _gitHubRepositoryLoaderService.LoadStarredRepositories(
-        new GitHubClientData
-        {
-          AccessToken = accessToken,
-          OrganizationName = "RepositoryAnalyzerAPI"
-        });
+      IList<GitHubRepository> loadedRepositories;
 
+      try
+      {
+        loadedRepositories = await _gitHubRepositoryLoaderService.LoadStarredRepositories(
+          new GitHubClientData
+          {
+            AccessToken = accessToken,
+            OrganizationName = "RepositoryAnalyzerAPI"
+          });
+      }
+      catch (Exception e)
+      {
+        return Problem(e.ToString(), statusCode: 500, title: "Error while loading repositories from GitHub");
+      }
+      
       if (loadedRepositories == null || !loadedRepositories.Any())
       {
         return NotFound("Starred repositories for current user");
