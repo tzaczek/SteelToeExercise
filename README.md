@@ -4,7 +4,7 @@ Repository with microservices learning project. The main goal behind this projec
 
 ## The business goal of the project
 
-The main goal is to expose REST API which allows for GitHub reposiotors search. It should be possible to load starred repositores and search for repositories which use spsecifed license name. Authentication is currently very simplified and personal GitHub access token is required to process request.
+The main goal is to expose REST API which allows for GitHub repositories search. It should be possible to load starred repositories and search for repositories which use specified license name. Authentication is currently very simplified and personal GitHub access token is required to process request.
 
 ## Architecture
 
@@ -13,16 +13,16 @@ The main goal is to expose REST API which allows for GitHub reposiotors search. 
 ## Solution description - main projects
 
 ### GitHub.Repository.Analyzer.GitHub.Client
-REST API exposing endpint for GitHubRepositores Search. It is also reposible for orchstrating calls to the Loader and Processor.
+REST API exposing endpoint for GitHubRepositores Search. It is also responsible for orchestrating calls to the Loader and Processor.
 
 ### GitHub.Repository.Analyzer.Loader
 Loader of GitHub repositores.
 
 ### GitHub.Repository.Analyzer.Processor
-Service repososible for processing content of repository.
+Service responsible for processing content of repository.
 
 ## Deployment
-Deployment in the current version is manual. Docker compose file will be added in the near future.  You need to run docker images prior to running services:
+Deployment in the current version is manual. Docker compose file will be added soon.  You need to run docker images prior to running services:
 
 1. https://github.com/SteeltoeOSS/Dockerfiles/tree/main/rabbitmq
 2. https://github.com/SteeltoeOSS/Dockerfiles/tree/main/redis
